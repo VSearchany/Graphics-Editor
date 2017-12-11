@@ -8,6 +8,6 @@ namespace RealtApp.Models
 {
     public class User : IdentityUser
     {
-        public List<Advertisement> Advertisements { get; set; }
+        public virtual ICollection<Advertisement> Advertisements { get; set; }
     }
 }

@@ -27,7 +27,9 @@ namespace RealtApp.Models
             IdentityResult chkUser = manager.Create(admin, adminPWD);
             if (chkUser.Succeeded)
             {
-                var result1 = manager.AddToRole(admin.Id, "Admin");
+                IdentityResult addRole;
+                addRole = manager.AddToRole(admin.Id, "Admin");
+                addRole = manager.AddToRole(admin.Id, "User");
             }
 
             return manager;
