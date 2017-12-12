@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace RealtApp.Models
+namespace Realt.Models
 {
     public class LoginModel
     {

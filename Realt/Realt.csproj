@@ -178,7 +178,6 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +186,10 @@
     <Compile Include="Migrations\201712110120022_Migration1.Designer.cs">
       <DependentUpon>201712110120022_Migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712120119374_Migration3.cs" />
+    <Compile Include="Migrations\201712120119374_Migration3.Designer.cs">
+      <DependentUpon>201712120119374_Migration3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Advertisement.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -194,6 +197,7 @@
     <Compile Include="Models\ApplicationRoleManager.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\SearchAdvertisementModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,13 +236,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Users\Get.cshtml" />
-    <Content Include="Views\Advertisement\Index.cshtml" />
-    <Content Include="Views\Advertisement\Get.cshtml" />
     <Content Include="Views\Advertisement\Create.cshtml" />
+    <Content Include="Views\Advertisement\Search.cshtml" />
+    <Content Include="Views\Advertisement\Show.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Advertisement\Edit.cshtml" />
+    <Content Include="Views\Advertisement\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -256,6 +264,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712110120022_Migration1.resx">
       <DependentUpon>201712110120022_Migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712120119374_Migration3.resx">
+      <DependentUpon>201712120119374_Migration3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

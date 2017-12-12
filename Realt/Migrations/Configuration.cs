@@ -5,14 +5,14 @@ namespace Realt.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RealtApp.Models.ApplicationContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Realt.Models.ApplicationContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(RealtApp.Models.ApplicationContext context)
+        protected override void Seed(Realt.Models.ApplicationContext context)
         {
             //  This method will be called after migrating to the latest version.
 

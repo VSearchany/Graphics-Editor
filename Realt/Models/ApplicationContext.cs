@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace RealtApp.Models
+namespace Realt.Models
 {
     public class ApplicationContext : IdentityDbContext<User>
     {

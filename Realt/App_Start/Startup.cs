@@ -1,11 +1,11 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using RealtApp.Models;
+using Realt.Models;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.AspNet.Identity;
 
-[assembly: OwinStartup(typeof(RealtApp.Startup))]
-namespace RealtApp
+[assembly: OwinStartup(typeof(Realt.Startup))]
+namespace Realt
 {
     public class Startup
     {

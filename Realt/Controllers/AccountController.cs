@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using RealtApp.Models;
+using Realt.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RealtApp.Controllers
+namespace Realt.Controllers
 {
     public class AccountController : Controller
     {
@@ -88,7 +88,7 @@ namespace RealtApp.Controllers
                             IsPersistent = true
                         }, claim);
                         if (String.IsNullOrEmpty(returnUrl))
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Advertisement");
                         return Redirect(returnUrl);
                     }
                 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RealtApp.Models
+namespace Realt.Models
 {
     public class RegisterModel
     {
