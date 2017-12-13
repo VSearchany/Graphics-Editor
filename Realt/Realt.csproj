@@ -243,10 +243,12 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Advertisement\Edit.cshtml" />
     <Content Include="Views\Advertisement\Delete.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Users\GetUsers.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

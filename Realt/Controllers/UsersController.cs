@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Realt.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,29 +10,67 @@ namespace Realt.Controllers
     [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
-        [HttpGet]
-        public ActionResult Get()
-        {
-            return View();
-        }
+        private ApplicationContext appContext = new ApplicationContext();
+        public static object mutex;
 
         [HttpGet]
-        public ActionResult Get(string id)
+        public ActionResult GetUsers()
         {
-            
-            return View();
+            IEnumerable<User> users = appContext.Users.AsEnumerable();
+            return View(users);
         }
 
-        [HttpPut]
-        public ActionResult Ban()
+        [HttpGet]
+        public ActionResult Delete(string id)
         {
-            return View();
+            User user = appContext.Users.Find(id);
+            foreach (var item in user.Roles)
+            {
+                var role = appContext.Roles.Find(item.RoleId);
+                if (role.Name == "Admin") { return RedirectToAction("GetUsers"); }
+            }
+            return View(user);
         }
 
-        [HttpPut]
-        public ActionResult Unban()
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeletePost(string id)
         {
-            return View();
+            User user = appContext.Users.Find(id);
+            appContext.Advertisements.RemoveRange(user.Advertisements);
+            appContext.Users.Remove(user);
+            appContext.SaveChanges();
+            return RedirectToAction("GetUsers");
+        }
+
+        [HttpGet]
+        public ActionResult Ban(string id)
+        {
+            User user = appContext.Users.Find(id);
+            if (!user.LockoutEnabled)
+            {
+                foreach (var item in user.Roles)
+                {
+                    var role = appContext.Roles.Find(item.RoleId);
+                    if (role.Name == "Admin") { return RedirectToAction("GetUsers"); }
+                }
+                user.LockoutEnabled = true;
+                if (TryUpdateModel(user, "", new string[] { "LockoutEnabled" }))
+                    appContext.SaveChanges();
+            }
+            return RedirectToAction("GetUsers");
+        }
+
+        [HttpGet]
+        public ActionResult Unban(string id)
+        {
+            User user = appContext.Users.Find(id);
+            if (user.LockoutEnabled)
+            {
+                user.LockoutEnabled = false;
+                if (TryUpdateModel(user, "", new string[] { "LockoutEnabled" }))
+                    appContext.SaveChanges();
+            }
+            return RedirectToAction("GetUsers");
         }
     }
 }

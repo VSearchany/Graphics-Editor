@@ -4,7 +4,7 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Вход на сайт</h2>
+<h2>LogIn</h2>
 
 
 @using (Html.BeginForm())
@@ -19,9 +19,9 @@
             @Html.EditorFor(x => x.Email)
         </p>
         <p>
-            <label>Пароль</label><br />
+            <label>Password</label><br />
             @Html.EditorFor(x => x.Password)
         </p>
-        <p><button type="submit">Войти</button></p>
+        <p><button type="submit">Login</button></p>
     </div>
 }

@@ -15,7 +15,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.Email)
+            @Html.DisplayNameFor(model => model.User.UserName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -41,7 +41,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Email)
+            @Html.DisplayFor(modelItem => item.User.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -62,11 +62,14 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @if (User.Identity.IsAuthenticated && User.Identity.Name == item.User.UserName)
+            @if (User.Identity.IsAuthenticated && (User.Identity.Name == item.User.UserName) || (User.IsInRole("Admin")))
             {
                 <div>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                    @if (User.Identity.Name == item.User.UserName)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                    }
                 </div>
             }
         </td>

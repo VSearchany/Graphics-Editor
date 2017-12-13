@@ -12,13 +12,6 @@ namespace Realt.Controllers
     public class AdvertisementController : Controller
     {
         private ApplicationContext appContext = new ApplicationContext();
-        private UserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<UserManager>();
-            }
-        }
 
         [AllowAnonymous]
         [HttpGet]
@@ -31,6 +24,10 @@ namespace Realt.Controllers
         [HttpGet]
         public ActionResult Get()
         {
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
             IEnumerable<Advertisement> userAds = appContext.Advertisements.Include("User").Where(ad => ad.User.UserName == User.Identity.Name).OrderByDescending(ad => ad.Date).AsEnumerable();
             return View("Show", userAds);
         }
@@ -71,6 +68,10 @@ namespace Realt.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
             Advertisement newAd = new Advertisement();
             return View(newAd);
         }
@@ -78,7 +79,11 @@ namespace Realt.Controllers
         [HttpPost]
         public ActionResult Create(Advertisement advertisement)
         {
-            User currentUser = appContext.Users.First(user => user.UserName == User.Identity.Name);
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
+            User currentUser = appContext.Users.Where(user => user.UserName == User.Identity.Name).First();
             advertisement.User = currentUser;
             advertisement.UserId = currentUser.Id;
             advertisement.Date = DateTime.Now.ToString();
@@ -90,6 +95,10 @@ namespace Realt.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
             Advertisement advertisement = appContext.Advertisements.Find(id);
             return View(advertisement);
         }
@@ -97,7 +106,12 @@ namespace Realt.Controllers
         [HttpPost, ActionName("Edit")]
         public ActionResult EditPost(int id)
         {
-            Advertisement advertisement = appContext.Advertisements.Find(id);
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
+            Advertisement advertisement;
+            advertisement = appContext.Advertisements.Find(id);
             advertisement.Date = DateTime.Now.ToString();
             if (TryUpdateModel(advertisement, "", new string[] { "Location", "Size", "Date", "Price", "Name", "Kind" }))
                 appContext.SaveChanges();
@@ -107,14 +121,24 @@ namespace Realt.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Advertisement advertisement = appContext.Advertisements.Find(id);
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
+            Advertisement advertisement;
+            advertisement = appContext.Advertisements.Find(id);
             return View(advertisement);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeletePost(int id)
         {
-            Advertisement advertisement = appContext.Advertisements.Find(id);
+            if ((appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0) == 0) || (appContext.Users.Count(user => string.Compare(user.UserName, User.Identity.Name) == 0 && user.LockoutEnabled) != 0))
+            {
+                return RedirectToAction("Logout", "Account");
+            }
+            Advertisement advertisement;
+            advertisement = appContext.Advertisements.Find(id);
             appContext.Advertisements.Remove(advertisement);
             appContext.SaveChanges();
             return RedirectToAction("Get");
